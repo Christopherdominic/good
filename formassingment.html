@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Form</title>
+</head>
+<body>
+	<h1>Simple Form</h1>
+	<form id="myForm" onsubmit="return validateForm()">
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" required><br><br>
+
+		<label for="email">Email address:</label>
+		<input type="email" id="email" name="email" required><br><br>
+
+		<label for="phone">Phone number:</label>
+		<input type="tel" id="phone" name="phone" required><br><br>
+
+		<label for="gender">Gender:</label>
+		<input type="radio" id="male" name="gender" value="male" required>
+		<label for="male">Male</label>
+		<input type="radio" id="female" name="gender" value="female" required>
+		<label for="female">Female</label><br><br>
+
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required><br><br>
+
+		<input type="submit" value="Submit">
+	</form>
+
+	<script>
+		function validateForm() {
+			let form = document.getElementById("myForm");
+			let name = form.elements["name"].value;
+			let email = form.elements["email"].value;
+			let phone = form.elements["phone"].value;
+			let password = form.elements["password"].value;
+			let male = form.elements["male"].checked;
+			let female = form.elements["female"].checked;
+
+			let isValid = true;
+
+			if (name === "") {
+				document.getElementById("name").style.backgroundColor = "pink";
+				isValid = false;
+			} else {
+				document.getElementById("name").style.backgroundColor = "white";
+			}
+
+			if (email === "") {
+				document.getElementById("email").style.backgroundColor = "pink";
+				isValid = false;
+			} else if (!isValidEmail(email)) {
+				alert("Invalid email address!");
+				isValid = false;
+			} else {
+				document.getElementById("email").style.backgroundColor = "white";
+			}
+
+			if (phone === "") {
+				document.getElementById("phone").style.backgroundColor = "pink";
+				isValid = false;
+			} else {
+				document.getElementById("phone").style.backgroundColor = "white";
+			}
+
+			if (password === "") {
+				document.getElementById("password").style.backgroundColor = "pink";
+				isValid = false;
+			} else {
+				document.getElementById("password").style.backgroundColor = "white";
+			}
+
+			if (!male && !female) {
+				document.getElementById("gender").style.backgroundColor = "pink";
+				isValid = false;
+			} else {
+				document.getElementById("gender").style.backgroundColor = "white";
+			}
+
+			if (isValid) {
+				alert("Form submitted successfully!");
+				form.reset();
+			}
+
+			return isValid;
+		}
+
+		function isValidEmail(email) {
+			// This is a simple regular expression to validate email addresses
+			let regex = /\S+@\S+\.\S+/;
+			return regex.test(email);
+		}
+	</script>
+</body>
+</html>
